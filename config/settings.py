@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if not DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -163,10 +163,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Пример: установите время жизни токена
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),  # Пример: установите время жизни для обновления токена
-    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),  # Пример: установите время жизни скользящего токена
-    'SLIDING_TOKEN_REFRESH_GRACE_PERIOD': timedelta(days=7),  # Пример: установите период для обновления скользящего токена
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_GRACE_PERIOD': timedelta(days=7),
 }
 
 # CORS setting
