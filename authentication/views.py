@@ -107,6 +107,10 @@ class LoginView(generics.GenericAPIView):
             raise AuthenticationFailed({
                 "error": "Incorrect password!"
             })
+        if not user.is_verified:
+            raise AuthenticationFailed({
+                "error": "Email is not verified!"
+            })
 
         refresh = RefreshToken.for_user(user)
 
