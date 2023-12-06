@@ -192,15 +192,21 @@ class AddToFavoritesView(generics.CreateAPIView):
             user = request.user
             book_id = self.kwargs.get('book_id')
             if not book_id:
-                return Response({'error': 'book_id parameter is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({
+                    'error': 'book_id parameter is missing.'},
+                    status=status.HTTP_400_BAD_REQUEST)
 
             book = get_object_or_404(Book, id=book_id)
 
             favorite_books, created = FavoriteBook.objects.get_or_create(user=user, book=book)
             if created:
-                return Response({'message': 'Book added to favorites successfully.'}, status=status.HTTP_201_CREATED)
+                return Response({
+                    'message': 'Book added to favorites successfully.'},
+                    status=status.HTTP_201_CREATED)
             else:
-                return Response({'message': 'Book is already in favorites.'}, status=status.HTTP_200_OK)
+                return Response({
+                    'message': 'Book is already in favorites.'},
+                    status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -251,7 +257,9 @@ class RemoveFromFavoritesView(generics.DestroyAPIView):
             book_id = self.kwargs.get('book_id')
 
             if not book_id:
-                return Response({'error': 'book_id parameter is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({
+                    'error': 'book_id parameter is missing.'},
+                    status=status.HTTP_400_BAD_REQUEST)
 
             book = get_object_or_404(Book, id=book_id)
 
@@ -260,6 +268,8 @@ class RemoveFromFavoritesView(generics.DestroyAPIView):
                 favorite_books.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             except FavoriteBook.DoesNotExist:
-                return Response({'message': 'Book is not in favorites.'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({
+                    'message': 'Book is not in favorites.'},
+                    status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
